@@ -1,7 +1,7 @@
 {
   "name": "viz-generator",
   "version": "0.0.0",
-  "description": "A small, thorougly-tested library for building visualizations and attaching them to the DOM.",
+  "description": "A small, thoroughly-tested library for building visualizations and attaching them to the DOM.",
   "main": "index.js",
   "repository": "https://github.com/amida-tech/viz-generator",
   "author": "Christopher Best <bestchris@gmail.com>",
