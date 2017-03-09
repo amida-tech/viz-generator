@@ -5,6 +5,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'viz-generator.js',
+        library: 'vizGenerator',
     },
     module: {
         loaders: [

@@ -1,5 +1,3 @@
-export default {
-    hello() {
-        return 'hello world';
-    },
-};
+export default function hello() {
+    return 'hello world';
+}
