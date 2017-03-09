@@ -6,4 +6,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'viz-generator.js',
     },
+    module: {
+        rules: [
+            { test: /\.(js|jsx)$/, use: 'babel-loader' },
+        ],
+    },
 };
