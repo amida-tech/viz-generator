@@ -1,5 +1,5 @@
-var gulp = require('gulp');
-var webpack = require('gulp-webpack');
+import gulp from 'gulp';
+import webpack from 'gulp-webpack';
 
 gulp.task('default', function () {
     return gulp.src('index.js')
