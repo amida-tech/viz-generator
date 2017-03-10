@@ -1,12 +1,13 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './viz',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'viz-generator.js',
         library: 'vizGenerator',
     },
+    watch: true,
     module: {
         loaders: [
             {
@@ -17,6 +18,13 @@ module.exports = {
                     presets: ['env'],
                 },
             },
+        ],
+    },
+    resolve: {
+        extensions: ['.js'],
+        modules: [
+            __dirname,
+            path.resolve(__dirname, './node_modules'),
         ],
     },
 };
