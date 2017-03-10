@@ -1,5 +1,9 @@
 module.exports = {
     "extends": "airbnb-base",
+    "env": {
+        "browser": true,
+        "mocha": true,
+    },
     "plugins": [
         "import"
     ],
@@ -8,5 +12,8 @@ module.exports = {
     },
     "parserOptions": {
         "sourceType": "module"
+    },
+    "settings": {
+        "import/resolver": "webpack"
     }
 };

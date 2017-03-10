@@ -11,5 +11,10 @@ gulp.task('test', done =>
     new Server({
         configFile: `${__dirname}/karma.conf.js`,
         singleRun: true,
-    }, done).start(),
-);
+    }, done).start());
+
+gulp.task('test:watch', done =>
+    new Server({
+        configFile: `${__dirname}/karma.conf.js`,
+        singleRun: false,
+    }, done).start());

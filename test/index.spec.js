@@ -1,4 +1,4 @@
-import { hello } from 'index';
+import hello from 'index';
 
 describe('viz', () => {
     it('returns \'hello world\'', () => {
