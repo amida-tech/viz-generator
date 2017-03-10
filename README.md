@@ -11,4 +11,7 @@ yarn
 
 # build the library
 gulp build
+
+# run tests
+gulp test
 ```
