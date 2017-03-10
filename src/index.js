@@ -1,4 +1,5 @@
-export default function
-    hello() {
+export class Graph { }
+
+export function hello() {
     return 'hello world';
 }
