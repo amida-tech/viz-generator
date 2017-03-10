@@ -7,7 +7,6 @@ module.exports = {
         filename: 'viz-generator.js',
         library: 'vizGenerator',
     },
-    watch: true,
     module: {
         loaders: [
             {
