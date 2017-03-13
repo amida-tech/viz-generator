@@ -10,7 +10,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
                 query: {
@@ -20,9 +20,10 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', '.json'],
         modules: [
             path.resolve(__dirname, './src'),
+            path.resolve(__dirname, './test'),
             path.resolve(__dirname, './node_modules'),
         ],
     },
