@@ -5,7 +5,11 @@ import webpackconfig from './webpack.config';
 
 gulp.task('build', () => gulp.src('src/index.js')
     .pipe(webpack(webpackconfig))
-    .pipe(gulp.dest('dist/')));
+    .pipe(gulp.dest('./')));
+
+gulp.task('build:watch', () => gulp.src('src/index.js')
+    .pipe(webpack(Object.assign(webpackconfig, { watch: true })))
+    .pipe(gulp.dest('./')));
 
 gulp.task('test', done =>
     new Server({
