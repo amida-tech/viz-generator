@@ -29,6 +29,7 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "d3": "3",
     "nvd3": "^1.8.5"
   }
 }

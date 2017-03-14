@@ -1,4 +1,6 @@
 import { Graph } from 'graphs/graph';
+import * as nv from 'nvd3';
+import * as d3 from 'd3';
 
 export class LineChart extends Graph {
     constructor(data, options) {
@@ -31,6 +33,20 @@ export class LineChart extends Graph {
     }
 
     render(node) {
-        node.innerHTML = 'line chart!';
+        const chart = nv.models.lineWithFocusChart();
+        chart.yAxis.tickFormat(d3.format('f'));
+        d3.select(node)
+        .datum(this.reshapeData())
+        .call(chart);
+    }
+
+    reshapeData() {
+        // nvd3 expects
+        // [{key: 'name', values:[{ x: <number>, y: <number> }]}]
+        return this.data.groups.map(series =>
+            ({
+                key: series.country_code,
+                values: series.values,
+            }));
     }
 }
