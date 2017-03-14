@@ -4,5 +4,5 @@ import options from 'fixtures/chartoptions/linechart.json';
 
 window.onload = () => {
     const chart = new LineChart(data, options);
-    chart.render(document.querySelector('#chart svg'));
+    chart.render(document.querySelector('#chart'));
 };

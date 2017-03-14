@@ -35,7 +35,7 @@ export class LineChart extends Graph {
     render(node) {
         const chart = nv.models.lineWithFocusChart();
         chart.yAxis.tickFormat(d3.format('f'));
-        d3.select(node)
+        d3.select(node).append('svg')
         .datum(this.reshapeData())
         .call(chart);
     }
