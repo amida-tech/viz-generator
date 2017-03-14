@@ -1,4 +1,4 @@
-import { Graph } from '../index';
+import { Graph } from 'graphs/graph';
 
 export class LineChart extends Graph {
     constructor(data, options) {
@@ -28,5 +28,9 @@ export class LineChart extends Graph {
             return `No header value specified for y axis (${this.options.plotParams.y})`;
         }
         return null;
+    }
+
+    render(node) {
+        node.innerHTML = 'line chart!';
     }
 }

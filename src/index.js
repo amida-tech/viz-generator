@@ -1,13 +1,6 @@
-export class Graph {
-    constructor(data, options) {
-        this.data = data;
-        this.options = options;
-    }
-
-    render(node) {
-    }
-}
-
 export function hello() {
     return 'hello world';
 }
+
+export * from 'graphs/linechart';
+export * from 'graphs/graph';
