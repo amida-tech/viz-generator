@@ -1,0 +1,24 @@
+{
+    "selector": "#comparisonLineChart",
+    "width": 600,
+    "height": 400,
+    "aggTypes": ["stdev", "mean"],
+    "coPlotAggregate": true,
+    "plotParams": {
+        "x": "year",
+        "y": "indicator_value",
+        "group": "country_code",
+        "isValueTypeRank": false,
+        "legend": {
+            "show": true
+        },
+        "axes": {
+            "x": {
+                "showLabel": true
+            },
+            "y": {
+                "showLabel": false
+            }
+        }
+    }
+}
