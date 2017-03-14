@@ -9,9 +9,13 @@ brew install yarn
 # install dependencies
 yarn
 
-# build the library
+# build the library using webpack
 gulp build
 
-# run tests
+# run tests using karma
 gulp test
+
+# run the development server using webpack-dev-server
+gulp serve
+open http://localhost:8080/example/line
 ```
