@@ -1,7 +1,9 @@
 import gulp from 'gulp';
 import gulpwebpack from 'gulp-webpack';
 import webpack from 'webpack';
+import gutil from 'gulp-util';
 import { Server } from 'karma';
+import WebpackDevServer from 'webpack-dev-server';
 import webpackconfig from './webpack.config';
 
 gulp.task('build', () => gulp.src('src/index.js')
@@ -23,3 +25,11 @@ gulp.task('test:watch', done =>
         configFile: `${__dirname}/karma.conf.js`,
         singleRun: false,
     }, done).start());
+
+gulp.task('serve', () => {
+    const compiler = webpack(webpackconfig);
+    new WebpackDevServer(compiler).listen(8080, 'localhost', (err) => {
+        if (err) throw new gutil.PluginError('webpack-dev-server', err);
+        gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
+    });
+});
