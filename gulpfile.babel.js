@@ -1,14 +1,15 @@
 import gulp from 'gulp';
-import webpack from 'gulp-webpack';
+import gulpwebpack from 'gulp-webpack';
+import webpack from 'webpack';
 import { Server } from 'karma';
 import webpackconfig from './webpack.config';
 
 gulp.task('build', () => gulp.src('src/index.js')
-    .pipe(webpack(webpackconfig))
+    .pipe(gulpwebpack(webpackconfig, webpack))
     .pipe(gulp.dest('./')));
 
 gulp.task('build:watch', () => gulp.src('src/index.js')
-    .pipe(webpack(Object.assign(webpackconfig, { watch: true })))
+    .pipe(gulpwebpack(Object.assign(webpackconfig, { watch: true }), webpack))
     .pipe(gulp.dest('./')));
 
 gulp.task('test', done =>
