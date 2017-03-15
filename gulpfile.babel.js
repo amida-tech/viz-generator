@@ -28,7 +28,9 @@ gulp.task('test:watch', done =>
 
 gulp.task('serve', () => {
     const compiler = webpack(webpackconfig);
-    new WebpackDevServer(compiler).listen(8080, 'localhost', (err) => {
+    new WebpackDevServer(compiler, {
+        stats: { colors: true },
+    }).listen(8080, 'localhost', (err) => {
         if (err) throw new gutil.PluginError('webpack-dev-server', err);
         gutil.log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/index.html');
     });

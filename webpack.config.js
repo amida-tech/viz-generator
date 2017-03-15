@@ -19,6 +19,10 @@ module.exports = {
                     presets: ['env'],
                 },
             },
+            {
+                test: /\.html$/,
+                loader: 'raw-loader',
+            },
         ],
     },
     resolve: {
