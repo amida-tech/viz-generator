@@ -48,10 +48,10 @@ export class LineChart extends Graph {
             d3.select(node).selectAll('.nv-y .tick line').attr('x2', -6).style('stroke', 'lightgray');
         });
         // force point size to match existing design
-        chart.lines.scatter.pointSize(40);
+        chart.lines.scatter.pointSize(50);
         d3.select(node).append('svg')
-        .datum(this.reshapeData())
-        .call(chart);
+            .datum(this.reshapeData())
+            .call(chart);
 
         // force draw point fills to approximate existing design
         d3.select(node).selectAll('.nv-point').style('fill-opacity', '1');
