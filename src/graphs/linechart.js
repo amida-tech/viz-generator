@@ -56,7 +56,9 @@ export class LineChart extends Graph {
         // force draw point fills to approximate existing design
         d3.select(node).selectAll('.nv-point').style('fill-opacity', '1');
         // force stroke-opacity to 1 on x-axis to show
-        d3.select(node).select('.domain').style('stroke-opacity', '1');
+        d3.select(node).selectAll('.domain')
+            .style('stroke-opacity', '1')
+            .style('stroke', 'lightgray');
     }
 
     reshapeData() {
