@@ -44,8 +44,8 @@ export class LineChart extends Graph {
         // force tick svg location to remove grid lines and create outer ticks
         chart.dispatch.on('renderEnd', () => {
             // NOTE can't use .tickSize because that doesn't kick in until render
-            d3.select(node).selectAll('.nv-x .tick line').attr('y2', 6);
-            d3.select(node).selectAll('.nv-y .tick line').attr('x2', -6);
+            d3.select(node).selectAll('.nv-x .tick line').attr('y2', 6).style('stroke', 'lightgray');
+            d3.select(node).selectAll('.nv-y .tick line').attr('x2', -6).style('stroke', 'lightgray');
         });
         // force point size to match existing design
         chart.lines.scatter.pointSize(40);
