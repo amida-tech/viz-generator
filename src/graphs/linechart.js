@@ -36,6 +36,15 @@ export class LineChart extends Graph {
         const chart = nv.models.lineChart();
         chart.yAxis.tickFormat(d3.format('f'));
         chart.yAxis.showMaxMin(false);
+        // space labels to accommodate outer ticks
+        chart.xAxis.axis.tickPadding(10);
+        chart.yAxis.axis.tickPadding(10);
+        // force tick svg location to remove grid lines and create outer ticks
+        chart.dispatch.on('renderEnd', () => {
+            // NOTE can't use .tickSize because that doesn't kick in until render
+            d3.select(node).selectAll('.nv-x .tick line').attr('y2', 6);
+            d3.select(node).selectAll('.nv-y .tick line').attr('x2', -6);
+        });
         d3.select(node).append('svg')
         .datum(this.reshapeData())
         .call(chart);
