@@ -10,7 +10,7 @@ module.exports = {
         filename: '[name].js',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -22,6 +22,10 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: 'raw-loader',
+            },
+            {
+                test: /\.css*/,
+                use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
             },
         ],
     },

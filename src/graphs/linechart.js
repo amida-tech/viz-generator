@@ -2,6 +2,8 @@ import { Graph } from 'graphs/graph';
 import * as nv from 'nvd3';
 import * as d3 from 'd3';
 
+require('./linechart.css');
+
 export class LineChart extends Graph {
     constructor(data, options) {
         super(data, options);
@@ -53,11 +55,6 @@ export class LineChart extends Graph {
         d3.select(node).selectAll('.nv-point').style('fill-opacity', '1');
         // force stroke-opacity to 1 on x-axis to show
         d3.select(node).select('.domain').style('stroke-opacity', '1');
-        d3.select(node).select('.tooltip')
-            .style('background', 'rgba(169,169,169, 0.9)')
-            .style('border', '0px')
-            .style('border-radius', '4px')
-            .style('color', 'white');
     }
 
     reshapeData() {
