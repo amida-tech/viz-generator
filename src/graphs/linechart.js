@@ -1,6 +1,7 @@
 import { Graph } from 'graphs/graph';
 import * as nv from 'nvd3';
 import * as d3 from 'd3';
+import { Utils } from 'utils';
 
 require('./linechart.css');
 
@@ -36,7 +37,7 @@ export class LineChart extends Graph {
 
     render(node) {
         const chart = nv.models.lineChart();
-        chart.yAxis.tickFormat(d3.format('f'));
+        chart.yAxis.tickFormat(Utils.nFormat);
         chart.yAxis.showMaxMin(false);
         // space labels to accommodate outer ticks
         chart.xAxis.axis.tickPadding(10);
