@@ -47,6 +47,8 @@ export class LineChart extends Graph {
             d3.select(node).selectAll('.nv-x .tick line').attr('y2', 6);
             d3.select(node).selectAll('.nv-y .tick line').attr('x2', -6);
         });
+        // force point size to match existing design
+        chart.lines.scatter.pointSize(40);
         d3.select(node).append('svg')
         .datum(this.reshapeData())
         .call(chart);
