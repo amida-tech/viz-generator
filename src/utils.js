@@ -63,6 +63,10 @@ const Utils = {
         }
         return Utils.number_format(number, 2, '.', ',');
     },
+
+    colorScaleWBarr: ['#009FDA', '#98252B', '#00AB51', '#EB1C2D', '#B88C1D', '#872B90', '#E16A2D', '#614776', '#FDB714', '#009CA7'],
+    colorScaleWB: n => Utils.colorScaleWBarr[n % Utils.colorScaleWBarr.length],
+    colorPrimary: '#F78D28',
 };
 
 export { Utils };

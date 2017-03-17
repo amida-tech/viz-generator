@@ -44,6 +44,7 @@ export class LineChart extends Graph {
         // space labels to accommodate outer ticks
         chart.xAxis.axis.tickPadding(10);
         chart.yAxis.axis.tickPadding(10);
+        chart.color(Utils.colorScaleWBarr);
         // force tick svg location to remove grid lines and create outer ticks
         chart.dispatch.on('renderEnd', () => {
             // NOTE can't use .tickSize because that doesn't kick in until render
@@ -89,6 +90,7 @@ export class LineChart extends Graph {
         return this.data.groups.map(series =>
             ({
                 key: series.country_code,
+                color: this.options.primary === series.country_code ? Utils.colorPrimary : null,
                 values: series.values,
             }));
     }

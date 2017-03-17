@@ -4,6 +4,7 @@
     "height": 400,
     "aggTypes": ["stdev", "mean"],
     "coPlotAggregate": true,
+    "primary": "USA",
     "plotParams": {
         "x": "year",
         "y": "indicator_value",
