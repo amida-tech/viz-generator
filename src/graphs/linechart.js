@@ -38,7 +38,6 @@ export class LineChart extends Graph {
     render(node) {
         const chart = nv.models.lineChart();
         chart.yAxis.tickFormat(Utils.nFormat);
-        chart.yAxis.showMaxMin(false);
         // space labels to accommodate outer ticks
         chart.xAxis.axis.tickPadding(10);
         chart.yAxis.axis.tickPadding(10);
