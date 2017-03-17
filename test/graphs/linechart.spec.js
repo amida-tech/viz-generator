@@ -1,12 +1,13 @@
 import { LineChart, makeLineChart } from 'graphs/linechart';
 import dataFixture from 'fixtures/chartdata/linechart.json';
 import optionsFixture from 'fixtures/chartoptions/linechart.json';
+import { expect } from 'chai';
 
 describe('LineChart', () => {
     it('exists', () => expect(LineChart).to.exist);
 
-    let data,
-        options;
+    let data;
+    let options;
     beforeEach(() => {
         data = JSON.parse(JSON.stringify(dataFixture));
         options = JSON.parse(JSON.stringify(optionsFixture));
