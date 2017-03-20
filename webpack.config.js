@@ -8,6 +8,7 @@ module.exports = {
     output: {
         path: __dirname,
         filename: '[name].js',
+        library: 'vizGenerator',
     },
     module: {
         rules: [
