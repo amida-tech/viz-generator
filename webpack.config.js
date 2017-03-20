@@ -1,9 +1,10 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
         'dist/viz-generator': './src/index',
-        'example/line/index': './example/line/line',
+        'dist/example/line/index': './example/line',
     },
     output: {
         path: __dirname,
@@ -38,4 +39,7 @@ module.exports = {
             path.resolve(__dirname, './node_modules'),
         ],
     },
+    plugins: [new HtmlWebpackPlugin({
+        filename: 'dist/example/line/index.html',
+    })],
 };
