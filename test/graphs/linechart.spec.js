@@ -74,4 +74,11 @@ describe('LineChart', () => {
             done();
         });
     });
+
+    it('renders correct number of data points', (done) => {
+        new LineChart(data, options).render(document.querySelector('div')).then(() => {
+            expect(document.querySelectorAll('.nv-point').length).to.equal((2015 - 1970) + 1);
+            done();
+        });
+    });
 });
