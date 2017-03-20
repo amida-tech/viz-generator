@@ -1,6 +1,6 @@
-import { Graph } from 'graphs/graph';
-import * as nv from 'nvd3';
 import * as d3 from 'd3';
+import * as nv from 'nvd3';
+import { Graph } from 'graphs/graph';
 import { Utils } from 'utils';
 
 require('./linechart.css');
