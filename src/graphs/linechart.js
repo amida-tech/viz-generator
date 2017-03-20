@@ -3,7 +3,7 @@ import * as nv from 'nvd3';
 import { Graph } from 'graphs/graph';
 import { Utils } from 'utils';
 
-require('./linechart.css');
+require('../styles/linechart.css');
 
 export class LineChart extends Graph {
     constructor(data, options) {
