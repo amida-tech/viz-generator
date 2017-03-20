@@ -14,8 +14,9 @@ module.exports = function (config) {
 
 
     // list of files / patterns to load in the browser
+    // disable watching because webpack processing triggers the test
         files: [
-            './test/**/*.spec.js',
+            { pattern: './test/**/*.js', watched: false, included: true, served: true },
         ],
 
 
