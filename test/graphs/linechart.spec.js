@@ -13,6 +13,9 @@ describe('LineChart', () => {
         options = JSON.parse(JSON.stringify(optionsFixture));
 
         // add chart div to install into
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
         const chartDiv = document.createElement('div');
         chartDiv.id = 'chart';
         document.body.append(chartDiv);
