@@ -11,6 +11,11 @@ describe('LineChart', () => {
     beforeEach(() => {
         data = JSON.parse(JSON.stringify(dataFixture));
         options = JSON.parse(JSON.stringify(optionsFixture));
+
+        // add chart div to install into
+        const chartDiv = document.createElement('div');
+        chartDiv.id = 'chart';
+        document.body.append(chartDiv);
     });
 
     it('throws an exception with no data', () => {
@@ -58,5 +63,12 @@ describe('LineChart', () => {
     it('throws an exception with no y-axis display name', () => {
         delete data.header.values[0][options.plotParams.y].display_name;
         expect(() => new LineChart(data, options)).to.throw(`No header value specified for y axis (${options.plotParams.y})`);
+    });
+
+    it('renders svg into the dom', (done) => {
+        new LineChart(data, options).render(document.querySelector('div')).then(() => {
+            expect(document.querySelector('svg')).to.be.not.null;
+            done();
+        });
     });
 });
