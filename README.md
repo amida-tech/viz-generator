@@ -17,5 +17,5 @@ gulp test
 
 # run the development server using webpack-dev-server
 gulp serve
-open http://localhost:8080/webpack-dev-server/dist/example/line
+open http://localhost:8080/webpack-dev-server/dist/example/line/
 ```
