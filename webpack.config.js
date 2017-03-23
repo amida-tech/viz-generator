@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         'dist/viz-generator': './src/index',
         'dist/example/line/index': './src/example/line',
+        'dist/example/chord/index': './src/example/chord',
     },
     output: {
         path: __dirname,
@@ -40,6 +41,10 @@ module.exports = {
         ],
     },
     plugins: [new HtmlWebpackPlugin({
+        filename: 'dist/example/chord/index.html',
+        template: 'src/example/index.html',
+        inject: false,
+    }), new HtmlWebpackPlugin({
         filename: 'dist/example/line/index.html',
         template: 'src/example/index.html',
         inject: false,

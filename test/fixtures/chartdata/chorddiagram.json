@@ -1,0 +1,183 @@
+{
+    "countries": [{
+        "id": "AUS",
+        "name": "Australia",
+        "region": "EAS"
+    }, {
+        "id": "USA",
+        "name": "United States",
+        "region": "NAC"
+    }, {
+        "id": "AFG",
+        "name": "Afghanistan",
+        "region": "SAS"
+    }, {
+        "id": "BRB",
+        "name": "Barbados",
+        "region": "LCN"
+    }],
+    "indicators": [{
+        "id": 2758,
+        "name": "Some unnamed indicator",
+        "valueType": "Value",
+        "subindicatorIds": null,
+        "definition": "",
+        "dataset": "Invented by me",
+        "byPartner": true,
+        "byProduct": false
+    }],
+    "partners": [{
+        "id": "AUS",
+        "name": "Australia",
+        "region": "EAS"
+    }, {
+        "id": "USA",
+        "name": "United States",
+        "region": "NAC"
+    }, {
+        "id": "AFG",
+        "name": "Afghanistan",
+        "region": "SAS"
+    }, {
+        "id": "BRB",
+        "name": "Barbados",
+        "region": "LCN"
+    }],
+    "data": [{
+        "id": "AUS",
+        "indicators": [{
+            "id": 2758,
+            "partners": [{
+                "partner": "AUS",
+                "values": {
+                    "2000": 0.75,
+                    "2001": 0.74
+                },
+                "estimated": []
+            }, {
+                "partner": "USA",
+                "values": {
+                    "2000": 9.9,
+                    "2001": 9.17
+                },
+                "estimated": []
+            }, {
+                "partner": "AFG",
+                "values": {
+                    "2000": 7.53,
+                    "2001": 7.7
+                },
+                "estimated": []
+            }, {
+                "partner": "BRB",
+                "values": {
+                    "2000": 9.18,
+                    "2001": 9.83
+                },
+                "estimated": []
+            }]
+        }]
+    }, {
+        "id": "USA",
+        "indicators": [{
+            "id": 2758,
+            "partners": [{
+                "partner": "AUS",
+                "values": {
+                    "2000": 4.5,
+                    "2001": 4.59
+                },
+                "estimated": []
+            }, {
+                "partner": "BRB",
+                "values": {
+                    "2000": 1.52,
+                    "2001": 1.64
+                },
+                "estimated": []
+            }, {
+                "partner": "AFG",
+                "values": {
+                    "2000": 0.36,
+                    "2001": 0.38
+                },
+                "estimated": []
+            }, {
+                "partner": "USA",
+                "values": {
+                    "2000": 4.05,
+                    "2001": 3.88
+                },
+                "estimated": []
+            }]
+        }]
+    }, {
+        "id": "AFG",
+        "indicators": [{
+            "id": 2758,
+            "partners": [{
+                "partner": "AUS",
+                "values": {
+                    "2000": 0.25,
+                    "2001": 0.44
+                },
+                "estimated": []
+            }, {
+                "partner": "USA",
+                "values": {
+                    "2000": 5.9,
+                    "2001": 3.17
+                },
+                "estimated": []
+            }, {
+                "partner": "AFG",
+                "values": {
+                    "2000": 8.53,
+                    "2001": 2.7
+                },
+                "estimated": []
+            }, {
+                "partner": "BRB",
+                "values": {
+                    "2000": 8.18,
+                    "2001": 1.83
+                },
+                "estimated": []
+            }]
+        }]
+    }, {
+        "id": "BRB",
+        "indicators": [{
+            "id": 2758,
+            "partners": [{
+                "partner": "AUS",
+                "values": {
+                    "2000": 3.25,
+                    "2001": 9.44
+                },
+                "estimated": []
+            }, {
+                "partner": "USA",
+                "values": {
+                    "2000": 3.9,
+                    "2001": 8.17
+                },
+                "estimated": []
+            }, {
+                "partner": "AFG",
+                "values": {
+                    "2000": 1.53,
+                    "2001": 0.7
+                },
+                "estimated": []
+            }, {
+                "partner": "BRB",
+                "values": {
+                    "2000": 2.18,
+                    "2001": 8.83
+                },
+                "estimated": []
+            }]
+        }]
+    }]
+}

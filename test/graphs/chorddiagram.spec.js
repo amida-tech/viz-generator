@@ -28,11 +28,6 @@ describe('ChordDiagram', () => {
     it('throws an exception with no options', () =>
         expect(() => new ChordDiagram(data)).to.throw('No options provided to ChordDiagram'));
 
-    it('throws an exception with no plot parameters', () => {
-        delete options.plotParams;
-        expect(() => new ChordDiagram(data, options)).to.throw('No plot parameters provided to ChordDiagram');
-    });
-
     it('renders svg into the dom', (done) => {
         new ChordDiagram(data, options).render(document.querySelector('div')).then(() => {
             expect(document.querySelector('svg')).to.be.not.null;

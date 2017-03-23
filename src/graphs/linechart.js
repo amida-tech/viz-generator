@@ -22,7 +22,7 @@ export class LineChart extends Graph {
         if (!this.options.plotParams.x) return 'No x axis specified in LineChart options';
         if (!this.options.plotParams.y) return 'No y axis specified in LineChart options';
 
-        // heder validation
+        // header validation
         if (!this.data.header) return 'No header specified in LineChart data';
         if (!this.data.header.values[0][this.options.plotParams.x] ||
             !this.data.header.values[0][this.options.plotParams.x].display_name) {
