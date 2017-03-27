@@ -4,22 +4,29 @@ import optionsFixture from 'fixtures/chartoptions/linechart.json';
 import { expect } from 'chai';
 
 describe('LineChart', () => {
-    it('exists', () => expect(LineChart).to.exist);
-
     let data;
     let options;
+    let target;
     beforeEach(() => {
         data = JSON.parse(JSON.stringify(dataFixture));
         options = JSON.parse(JSON.stringify(optionsFixture));
 
         // add chart div to install into
-        while (document.body.firstChild) {
-            document.body.removeChild(document.body.firstChild);
+        target = document.querySelector('#linechart');
+        if (!target) {
+            target = document.createElement('div');
+            target.id = 'linechart';
+            document.body.append(target);
         }
-        const chartDiv = document.createElement('div');
-        chartDiv.id = 'chart';
-        document.body.append(chartDiv);
     });
+
+    afterEach(() => {
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+    });
+
+    it('exists', () => expect(LineChart).to.exist);
 
     it('throws an exception with no data', () => {
         expect(() => new LineChart()).to.throw('No data provided to LineChart');
@@ -69,14 +76,14 @@ describe('LineChart', () => {
     });
 
     it('renders svg into the dom', (done) => {
-        new LineChart(data, options).render(document.querySelector('div')).then(() => {
+        new LineChart(data, options).render(document.querySelector('#linechart')).then(() => {
             expect(document.querySelector('svg')).to.be.not.null;
             done();
         });
     });
 
     it('renders correct number of data points', (done) => {
-        new LineChart(data, options).render(document.querySelector('div')).then(() => {
+        new LineChart(data, options).render(document.querySelector('#linechart')).then(() => {
             expect(document.querySelectorAll('.nv-point').length).to.equal((2015 - 1970) + 1);
             done();
         });

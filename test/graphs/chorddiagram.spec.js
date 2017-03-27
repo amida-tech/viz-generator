@@ -4,22 +4,29 @@ import optionsFixture from 'fixtures/chartoptions/chorddiagram.json';
 import { expect } from 'chai';
 
 describe('ChordDiagram', () => {
-    it('exists', () => expect(ChordDiagram).to.exist);
-
     let data;
     let options;
+    let target;
     beforeEach(() => {
         data = JSON.parse(JSON.stringify(dataFixture));
         options = JSON.parse(JSON.stringify(optionsFixture));
 
         // add chart div to install into
-        while (document.body.firstChild) {
-            document.body.removeChild(document.body.firstChild);
+        target = document.querySelector('#chorddiagram');
+        if (!target) {
+            target = document.createElement('div');
+            target.id = 'chorddiagram';
+            document.body.append(target);
         }
-        const chartDiv = document.createElement('div');
-        chartDiv.id = 'chart';
-        document.body.append(chartDiv);
     });
+
+    afterEach(() => {
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+    });
+
+    it('exists', () => expect(ChordDiagram).to.exist);
 
     it('throws an exception with no data', () => {
         expect(() => new ChordDiagram()).to.throw('No data provided to ChordDiagram');
@@ -29,7 +36,7 @@ describe('ChordDiagram', () => {
         expect(() => new ChordDiagram(data)).to.throw('No options provided to ChordDiagram'));
 
     it('renders svg into the dom', (done) => {
-        new ChordDiagram(data, options).render(document.querySelector('div')).then(() => {
+        new ChordDiagram(data, options).render(document.querySelector('#chorddiagram')).then(() => {
             expect(document.querySelector('svg')).to.be.not.null;
             done();
         });
