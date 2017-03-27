@@ -41,4 +41,12 @@ describe('ChordDiagram', () => {
             done();
         });
     });
+
+    it('renders the correct number of chords', (done) => {
+        new ChordDiagram(data, options).render(document.querySelector('#chorddiagram')).then(() => {
+            expect(document.querySelector('#chorddiagram').querySelectorAll('path.chord').length)
+                .to.equal(10);
+            done();
+        });
+    });
 });
