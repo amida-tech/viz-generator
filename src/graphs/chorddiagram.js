@@ -73,6 +73,12 @@ export class ChordDiagram extends Graph {
             dims[1] = size[1] - marg[0] - marg[2];
 
             const colors = d3.scale.ordinal().range(Utils.colorScaleWBarr);
+            const primaryOverride = (d) => {
+                if (d === this.options.primary) {
+                    return Utils.colorPrimary;
+                }
+                return colors(d);
+            };
 
             const chord = d3.layout.chord()
             .padding(0.02)
@@ -141,7 +147,7 @@ export class ChordDiagram extends Graph {
 
             gEnter.append('path')
                 .style('pointer-events', 'none')
-                .style('fill', d => colors(d.id))
+                .style('fill', d => primaryOverride(d.id))
                 .attr('d', arc);
 
             gEnter.append('text')
@@ -178,7 +184,7 @@ export class ChordDiagram extends Graph {
 
             chords.enter().append('path')
                 .attr('class', 'chord')
-                .style('fill', d => colors(d.source.id))
+                .style('fill', d => primaryOverride(d.source.id))
                 .attr('d', path)
                 .on('mouseover', chordMouseover)
                 .on('mouseout', hideTooltip);
