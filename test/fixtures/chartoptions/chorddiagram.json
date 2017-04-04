@@ -1,25 +1,16 @@
 {
-    "selector": "#comparisonLineChart",
     "width": 600,
     "height": 400,
     "aggTypes": ["stdev", "mean"],
     "coPlotAggregate": true,
     "primary": "USA",
+    "partners": ["CHN", "AFG"],
+    "indicator": 2321,
     "plotParams": {
-        "x": "year",
-        "y": "indicator_value",
+        "year": "2008",
         "group": "country_code",
-        "isValueTypeRank": false,
         "legend": {
             "show": true
-        },
-        "axes": {
-            "x": {
-                "showLabel": true
-            },
-            "y": {
-                "showLabel": false
-            }
         }
     }
 }

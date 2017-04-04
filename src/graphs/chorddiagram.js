@@ -15,6 +15,10 @@ export class ChordDiagram extends Graph {
         // require both data and options to exist
         if (!this.data) return 'No data provided to ChordDiagram';
         if (!this.options) return 'No options provided to ChordDiagram';
+        if (!this.options.primary) return 'No primary country provided to ChordDiagram';
+        if (!this.options.partners) return 'No partner countries specified to ChordDiagram';
+        if (!this.options.plotParams.year) return 'No year specified to ChordDiagram';
+        if (!this.options.indicator) return 'No indicator specified to ChordDiagram';
         return null;
     }
 
@@ -189,23 +193,29 @@ export class ChordDiagram extends Graph {
     }
 
     reshapeData() {
+        const primary = this.options.primary;
         const data = this.data;
-        const countries = this.data.countries.map(c => c.id);
+        const partners = this.options.partners;
+        const indicator = this.options.indicator;
         const result = [];
-        for (let i = 0; i < countries.length; i += 1) {
-            for (let j = i; j < countries.length; j += 1) {
-                const partner1 = countries[i];
-                const partner2 = countries[j];
-                const data1 = data.data.find(d => d.id === partner1);
-                const values1 = data1.indicators[0].partners
-                    .find(p => p.partner === partner2).values;
-                const value1 = values1[Object.keys(values1)[0]];
-                const data2 = data.data.find(d => d.id === partner2);
-                const values2 = data2.indicators[0].partners
-                    .find(p => p.partner === partner1).values;
-                const value2 = values2[Object.keys(values2)[0]];
-                result.push({ partner1, partner2, value1, value2 });
+        let primarydata = data.data.find(d => d.id === primary);
+        if (!primarydata) {
+            return null;
+        }
+        primarydata = primarydata.indicators.find(d => d.id === indicator);
+        if (!primarydata) {
+            return null;
+        }
+        for (let i = 0; i < partners.length; i += 1) {
+            const partner2 = partners[i];
+            const partnerdata = primarydata.partners.find(d => d.partner === partner2);
+            let value;
+            if (!partnerdata || !partnerdata.values[this.options.plotParams.year]) {
+                value = 0;
+            } else {
+                value = partnerdata.values[this.options.plotParams.year];
             }
+            result.push({ partner1: primary, partner2, value1: value, value2: value });
         }
         return result;
     }
