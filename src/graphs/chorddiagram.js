@@ -66,8 +66,8 @@ export class ChordDiagram extends Graph {
                 resetChords();
             }
 
-            const size = [750, 750];
-            const marg = [50, 50, 50, 50];
+            const size = [this.options.width, this.options.height];
+            const marg = [0, 0, 0, 0];
             const dims = [];
             dims[0] = size[0] - marg[1] - marg[3];
             dims[1] = size[1] - marg[0] - marg[2];
@@ -112,10 +112,11 @@ export class ChordDiagram extends Graph {
 
             const path = d3.svg.chord().radius(innerRadius);
 
+            // TODO remove existing contents of node
             const svg = d3.select(node).append('svg')
                 .attr('class', 'chart')
-                .attr({ width: `${size[0]}px`, height: `${size[1]}px` })
-                .attr('preserveAspectRatio', 'xMinYMin')
+                .attr({ width: '100%', height: '100%' })
+                .attr('preserveAspectRatio', 'xMidYMin meet')
                 .attr('viewBox', `0 0 ${size[0]} ${size[1]}`);
 
             container = svg.append('g')
@@ -204,24 +205,49 @@ export class ChordDiagram extends Graph {
         const partners = this.options.partners;
         const indicator = this.options.indicator;
         const result = [];
-        let primarydata = data.data.find(d => d.id === primary);
-        if (!primarydata) {
+        let primaryData = data.data.find(d => d.id === primary);
+        if (!primaryData) {
             return null;
         }
-        primarydata = primarydata.indicators.find(d => d.id === indicator);
-        if (!primarydata) {
+        primaryData = primaryData.indicators.find(d => d.id === indicator);
+        if (!primaryData) {
             return null;
         }
         for (let i = 0; i < partners.length; i += 1) {
             const partner2 = partners[i];
-            const partnerdata = primarydata.partners.find(d => d.partner === partner2);
-            let value;
-            if (!partnerdata || !partnerdata.values[this.options.plotParams.year]) {
-                value = 0;
+
+            // primary to partner value
+            const primaryToPartnerData = primaryData.partners.find(d => d.partner === partner2);
+            let value1;
+            if (!primaryToPartnerData ||
+                !primaryToPartnerData.values[this.options.plotParams.year]) {
+                value1 = 0;
             } else {
-                value = partnerdata.values[this.options.plotParams.year];
+                value1 = primaryToPartnerData.values[this.options.plotParams.year];
             }
-            result.push({ partner1: primary, partner2, value1: value, value2: value });
+
+            // partner to primary value
+            let value2;
+            let partnerToPrimaryData = data.data.find(d => d.id === partner2);
+            if (!partnerToPrimaryData) {
+                value2 = 0;
+            } else {
+                partnerToPrimaryData =
+                    partnerToPrimaryData.indicators.find(d => d.id === indicator);
+                if (!partnerToPrimaryData) {
+                    value2 = 0;
+                } else {
+                    partnerToPrimaryData =
+                        partnerToPrimaryData.partners.find(d => d.partner === primary);
+                    if (!partnerToPrimaryData ||
+                        !partnerToPrimaryData.values[this.options.plotParams.year]) {
+                        value2 = 0;
+                    } else {
+                        value2 = partnerToPrimaryData.values[this.options.plotParams.year];
+                    }
+                }
+            }
+            result.push({ partner1: primary, partner2, value1, value2 });
         }
         return result;
     }
