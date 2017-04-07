@@ -112,7 +112,8 @@ export class ChordDiagram extends Graph {
 
             const path = d3.svg.chord().radius(innerRadius);
 
-            // TODO remove existing contents of node
+            // remove existing contents of node first
+            d3.select(node).html('');
             const svg = d3.select(node).append('svg')
                 .attr('class', 'chart')
                 .attr({ width: '100%', height: '100%' })
@@ -128,8 +129,6 @@ export class ChordDiagram extends Graph {
                 .attr('transform', 'translate(10,10)')
                 .text('Updating...');
 
-
-            // TODO was wrapped in a drawChords() in chord-transitions
 
             messages.attr('opacity', 1);
             messages.transition().duration(1000).attr('opacity', 0);
