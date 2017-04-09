@@ -155,7 +155,10 @@ export class ChordDiagram extends Graph {
                 .on('click', groupClick)
                 .on('mouseover', dimChords)
                 .on('mouseout', resetChords)
-                .text(d => d.id);
+                .text((d) => {
+                    if (d.id === 'Other') return d.id;
+                    return this.data.countries.find(country => country.id === d.id).name;
+                });
 
             groups.select('path')
                 .transition().duration(2000)
