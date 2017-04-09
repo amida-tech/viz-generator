@@ -248,6 +248,15 @@ export class ChordDiagram extends Graph {
             }
             result.push({ partner1: primary, partner2, value1, value2 });
         }
+
+        // sum non-partner countries to form "Other" group
+        const other = primaryData.partners.reduce((acc, partner) => {
+            if (partners.includes(partner.partner)) {
+                return acc;
+            }
+            return acc + (partner.values[this.options.plotParams.year] || 0);
+        }, 0);
+        result.push({ partner1: primary, partner2: 'Other', value1: other, value2: other });
         return result;
     }
 }
