@@ -124,15 +124,6 @@ export class ChordDiagram extends Graph {
                 .attr('class', 'container')
                 .attr('transform', `translate(${(dims[0] / 2) + marg[3]},${(dims[1] / 2) + marg[0]})`);
 
-            const messages = svg.append('text')
-                .attr('class', 'messages')
-                .attr('transform', 'translate(10,10)')
-                .text('Updating...');
-
-
-            messages.attr('opacity', 1);
-            messages.transition().duration(1000).attr('opacity', 0);
-
             chordMatrix.data(this.reshapeData(this.data))
                 .resetKeys()
                 .addKeys(['partner1', 'partner2'])
@@ -160,13 +151,7 @@ export class ChordDiagram extends Graph {
                     return this.data.countries.find(country => country.id === d.id).name;
                 });
 
-            groups.select('path')
-                .transition().duration(2000)
-                .attrTween('d', chordMatrix.groupTween(arc));
-
             groups.select('text')
-                .transition()
-                .duration(2000)
                 .attr('transform', (d) => {
                     d.angle = (d.startAngle + d.endAngle) / 2;
                     const r = `rotate(${((d.angle * 180) / Math.PI) - 90})`;
@@ -191,9 +176,6 @@ export class ChordDiagram extends Graph {
                 .attr('d', path)
                 .on('mouseover', chordMouseover)
                 .on('mouseout', hideTooltip);
-
-            chords.transition().duration(2000)
-                .attrTween('d', chordMatrix.chordTween(path));
 
             chords.exit().remove();
 
