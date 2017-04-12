@@ -26,13 +26,13 @@ export class ChordDiagram extends Graph {
         return new Promise((resolve, reject) => {
             let container;
 
-            function resetChords() {
+            const resetChords = () => {
                 currentEvent.preventDefault();
                 currentEvent.stopPropagation();
                 container.selectAll('path.chord').style('opacity', 0.9);
-            }
+            };
 
-            function dimChords(d) {
+            const dimChords = (d) => {
                 currentEvent.preventDefault();
                 currentEvent.stopPropagation();
                 container.selectAll('path.chord').style('opacity', (p) => {
@@ -41,30 +41,48 @@ export class ChordDiagram extends Graph {
                     }
                     return (p.source.id === d.id || p.target.id === d.id) ? 0.9 : 0.1;
                 });
-            }
+            };
 
-            function groupClick(d) {
+            const groupClick = () => {
                 currentEvent.preventDefault();
                 currentEvent.stopPropagation();
                 // TODO addFilter
                 resetChords();
-            }
+            };
 
-            function chordMouseover(d) {
+            const updateToolTip = (data) => {
+                // partner1 will be reference country
+                const partner1Name =
+                this.data.partners.find(p => p.id === data.sdata.data[0].partner1).name;
+                const partner2 = this.data.partners.find(p => p.id === data.sdata.data[0].partner2);
+                const value1 = data.sdata.data[0].value1;
+                const value2 = data.sdata.data[0].value2;
+                const partner2Name = partner2 ? partner2.name : data.tname;
+                const location = d3.mouse(node);
+                d3.select(node).select('.tooltip').html(
+                `<i>${partner1Name} \u21FE ${partner2Name}: ${Utils.nFormat(value1)}</i><br/>
+                    <i>${partner2Name} \u21FE ${partner1Name}: ${Utils.nFormat(value2)}</i>`)
+                .style('left', `${location[0]}px`)
+                .style('top', `${location[1]}px`);
+            };
+
+            const chordMatrix = new ChordMatrix();
+
+            const chordMouseover = (d) => {
                 currentEvent.preventDefault();
                 currentEvent.stopPropagation();
                 dimChords(d);
                 d3.select(node).select('.tooltip')
                 .style('opacity', 1);
-                // TODO $scope.updateTooltip(chordMatrix.read(d));
-            }
+                updateToolTip(chordMatrix.read(d));
+            };
 
-            function hideTooltip() {
+            const hideTooltip = () => {
                 currentEvent.preventDefault();
                 currentEvent.stopPropagation();
                 d3.select(node).select('.tooltip').style('opacity', 0);
                 resetChords();
-            }
+            };
 
             const size = [this.options.width, this.options.height];
             const marg = [0, 0, 0, 0];
@@ -85,7 +103,6 @@ export class ChordDiagram extends Graph {
             .sortGroups(d3.descending)
             .sortSubgroups(d3.ascending);
 
-            const chordMatrix = new ChordMatrix();
             chordMatrix.layout(chord)
                 .filter((item, r, c) => (item.partner1 === r.name && item.partner2 === c.name) ||
                 (item.partner1 === c.name && item.partner2 === r.name))
@@ -114,6 +131,11 @@ export class ChordDiagram extends Graph {
 
             // remove existing contents of node first
             d3.select(node).html('');
+            d3.select(node).append('div')
+                .attr('class', 'tooltip')
+                .style('opacity', 0)
+                .style('text-align', 'center');
+
             const svg = d3.select(node).append('svg')
                 .attr('class', 'chart')
                 .attr({ width: '100%', height: '100%' })
