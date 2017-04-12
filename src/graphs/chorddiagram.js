@@ -85,7 +85,7 @@ export class ChordDiagram extends Graph {
             };
 
             const size = [this.options.width, this.options.height];
-            const marg = [0, 0, 0, 0];
+            const marg = [20, 20, 20, 20];
             const dims = [];
             dims[0] = size[0] - marg[1] - marg[3];
             dims[1] = size[1] - marg[0] - marg[2];
