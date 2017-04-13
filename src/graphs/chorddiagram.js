@@ -146,7 +146,12 @@ export class ChordDiagram extends Graph {
                 .attr('class', 'container')
                 .attr('transform', `translate(${(dims[0] / 2) + marg[3]},${(dims[1] / 2) + marg[0]})`);
 
-            chordMatrix.data(this.reshapeData(this.data))
+            const reshaped = this.reshapeData(this.data);
+            if (reshaped === null) {
+                reject(new Error('No data available for reference country'));
+                d3.select(node).html('');
+            }
+            chordMatrix.data(reshaped)
                 .resetKeys()
                 .addKeys(['partner1', 'partner2'])
                 .update();
