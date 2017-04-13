@@ -253,7 +253,7 @@ export class ChordDiagram extends Graph {
                     }
                 }
             }
-            if (value1 !== 0 || value2 !== 0) {
+            if (value1 !== 0 && value2 !== 0) {
                 result.push({ partner1: primary, partner2, value1, value2 });
             }
         }
