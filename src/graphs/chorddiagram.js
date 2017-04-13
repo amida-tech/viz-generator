@@ -270,7 +270,13 @@ export class ChordDiagram extends Graph {
             }
             return acc + (partner.values[this.options.plotParams.year] || 0);
         }, 0);
-        result.push({ partner1: primary, partner2: 'Other', value1: other, value2: other });
+        if (other !== 0) {
+            result.push({ partner1: primary, partner2: 'Other', value1: other, value2: other });
+        }
+
+        if (result.length === 0) {
+            return null;
+        }
         return result;
     }
 }
