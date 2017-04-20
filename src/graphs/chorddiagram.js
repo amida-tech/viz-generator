@@ -57,7 +57,7 @@ export class ChordDiagram extends Graph {
                 const partner2 = this.data.partners.find(p => p.id === data.sdata.data[0].partner2);
                 const value1 = data.sdata.data[0].value1;
                 const value2 = data.sdata.data[0].value2;
-                const partner2Name = partner2 ? partner2.name : data.tname;
+                const partner2Name = partner2 ? partner2.name : 'Other';
                 const location = d3.mouse(node);
                 d3.select(node).select('.tooltip').html(
                 `<i>${partner1Name} \u21FE ${partner2Name}: ${Utils.nFormat(value1)}</i><br/>
@@ -264,14 +264,20 @@ export class ChordDiagram extends Graph {
         }
 
         // sum non-partner countries to form "Other" group
-        const other = primaryData.partners.reduce((acc, partner) => {
+        const refToOther = primaryData.partners.reduce((acc, partner) => {
             if (partners.includes(partner.partner)) {
                 return acc;
             }
             return acc + (partner.values[this.options.plotParams.year] || 0);
         }, 0);
-        if (other !== 0) {
-            result.push({ partner1: primary, partner2: 'Other', value1: other, value2: other });
+        const otherToRef = data.otherData.data.reduce((acc, otherCountry) => {
+            if (partners.includes(otherCountry.id)) return acc;
+            const indicatorData = otherCountry.indicators[0].partners[0];
+            return acc + (indicatorData.values[this.options.plotParams.year] || 0);
+        }, 0);
+
+        if (refToOther !== 0) {
+            result.push({ partner1: primary, partner2: 'Other', value1: refToOther, value2: otherToRef });
         }
 
         if (result.length === 0) {
