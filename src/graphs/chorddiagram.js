@@ -55,8 +55,8 @@ export class ChordDiagram extends Graph {
                 const partner1Name =
                 this.data.partners.find(p => p.id === data.sdata.data[0].partner1).name;
                 const partner2 = this.data.partners.find(p => p.id === data.sdata.data[0].partner2);
-                const value1 = data.sdata.data[0].value1;
-                const value2 = data.sdata.data[0].value2;
+                const value1 = data.sdata.data[0].displayValue1;
+                const value2 = data.sdata.data[0].displayValue2;
                 const partner2Name = partner2 ? partner2.name : 'Other';
                 const location = d3.mouse(node);
                 d3.select(node).select('.tooltip').html(
@@ -229,55 +229,74 @@ export class ChordDiagram extends Graph {
 
             // primary to partner value
             const primaryToPartnerData = primaryData.partners.find(d => d.partner === partner2);
-            let value1;
+            let displayValue1;
             if (!primaryToPartnerData ||
                 !primaryToPartnerData.values[this.options.plotParams.year]) {
-                value1 = 0;
+                displayValue1 = 0;
             } else {
-                value1 = primaryToPartnerData.values[this.options.plotParams.year];
+                displayValue1 = primaryToPartnerData.values[this.options.plotParams.year];
             }
+            const value1 = Math.abs(displayValue1);
 
             // partner to primary value
-            let value2;
+            let displayValue2;
             let partnerToPrimaryData = data.data.find(d => d.id === partner2);
             if (!partnerToPrimaryData) {
-                value2 = 0;
+                displayValue2 = 0;
             } else {
                 partnerToPrimaryData =
                     partnerToPrimaryData.indicators.find(d => d.id === indicator);
                 if (!partnerToPrimaryData) {
-                    value2 = 0;
+                    displayValue2 = 0;
                 } else {
                     partnerToPrimaryData =
                         partnerToPrimaryData.partners.find(d => d.partner === primary);
                     if (!partnerToPrimaryData ||
                         !partnerToPrimaryData.values[this.options.plotParams.year]) {
-                        value2 = 0;
+                        displayValue2 = 0;
                     } else {
-                        value2 = partnerToPrimaryData.values[this.options.plotParams.year];
+                        displayValue2 = partnerToPrimaryData.values[this.options.plotParams.year];
                     }
                 }
             }
+            const value2 = Math.abs(displayValue2);
             if (value1 !== 0 && value2 !== 0) {
-                result.push({ partner1: primary, partner2, value1, value2 });
+                result.push({
+                    partner1: primary,
+                    partner2,
+                    value1,
+                    value2,
+                    displayValue1,
+                    displayValue2,
+                });
             }
         }
 
         // sum non-partner countries to form "Other" group
-        const refToOther = primaryData.partners.reduce((acc, partner) => {
+        const displayRefToOther = primaryData.partners.reduce((acc, partner) => {
             if (partners.includes(partner.partner)) {
                 return acc;
             }
             return acc + (partner.values[this.options.plotParams.year] || 0);
         }, 0);
-        const otherToRef = data.otherData.data.reduce((acc, otherCountry) => {
+        const displayOtherToRef = data.otherData.data.reduce((acc, otherCountry) => {
             if (partners.includes(otherCountry.id)) return acc;
             const indicatorData = otherCountry.indicators[0].partners[0];
             return acc + (indicatorData.values[this.options.plotParams.year] || 0);
         }, 0);
 
+        const refToOther = Math.abs(displayRefToOther);
+        const otherToRef = Math.abs(displayOtherToRef);
+
         if (refToOther !== 0) {
-            result.push({ partner1: primary, partner2: 'Other', value1: refToOther, value2: otherToRef });
+            result.push({
+                partner1: primary,
+                partner2: 'Other',
+                value1: refToOther,
+                value2: otherToRef,
+                displayValue1: displayRefToOther,
+                displayValue2: displayOtherToRef,
+            });
         }
 
         if (result.length === 0) {
