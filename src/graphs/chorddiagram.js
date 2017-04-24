@@ -138,7 +138,7 @@ export class ChordDiagram extends Graph {
 
             const svg = d3.select(node).append('svg')
                 .attr('class', 'chart')
-                .attr({ width: '100%', height: '100%' })
+                .attr({ width: `${this.options.width}`, height: `${this.options.height}` })
                 .attr('preserveAspectRatio', 'xMidYMin meet')
                 .attr('viewBox', `0 0 ${size[0]} ${size[1]}`);
 
