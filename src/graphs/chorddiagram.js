@@ -22,6 +22,39 @@ export class ChordDiagram extends Graph {
         return null;
     }
 
+    wrapName(name) {
+        const MAX_LENGTH = this.options.maxLength || 13;
+        if (name.length < MAX_LENGTH) return name;
+
+        // try splitting before parentheses
+        const byParen = name.split(' (');
+        if (byParen.every(el => el.length < MAX_LENGTH)) {
+            return byParen.join('\n(');
+        }
+
+        // try splitting after comma
+        const byComma = name.split(', ');
+        if (byComma.every(el => el.length < MAX_LENGTH)) {
+            return byComma.join(',\n');
+        }
+
+        // break on a space
+        const bySpace = name.split(' ');
+        let minBySpace = [name];
+        let min = name.length;
+        for (let i = 0; i < bySpace.length; i += 1) {
+            const split = [bySpace.slice(0, i + 1).join(' '),
+                bySpace.slice(i + 1).join(' ')];
+            const splitLength = Math.max.apply(null, split.map(s => s.length));
+            if (splitLength < min) {
+                min = splitLength;
+                minBySpace = split;
+            }
+        }
+
+        return minBySpace.join('\n');
+    }
+
     render(node) {
         return new Promise((resolve, reject) => {
             let container;
@@ -41,13 +74,6 @@ export class ChordDiagram extends Graph {
                     }
                     return (p.source.id === d.id || p.target.id === d.id) ? 0.9 : 0.1;
                 });
-            };
-
-            const groupClick = () => {
-                currentEvent.preventDefault();
-                currentEvent.stopPropagation();
-                // TODO addFilter
-                resetChords();
             };
 
             const updateToolTip = (data) => {
@@ -170,13 +196,33 @@ export class ChordDiagram extends Graph {
 
             gEnter.append('text')
                 .attr('dy', '.35em')
-                .on('click', groupClick)
                 .on('mouseover', dimChords)
                 .on('mouseout', resetChords)
                 .text((d) => {
                     if (d.id === 'Other') return d.id;
-                    return this.data.countries.find(country => country.id === d.id).name;
+                    return this.wrapName(
+                        this.data.countries.find(country => country.id === d.id).name);
                 });
+
+            // convert new lines to tspans
+            container.selectAll('g.group text').call((texts) => {
+                const wrapTspan = function () {
+                    const text = d3.select(this);
+                    const components = text.text().split('\n');
+                    if (components.length > 1) {
+                        text.text(null);
+                        text.append('tspan')
+                            .attr('x', 0)
+                            .attr('dy', `${parseFloat(text.attr('dy')) - 0.6}em`)
+                            .text(components[0]);
+                        text.append('tspan')
+                            .attr('x', 0)
+                            .attr('dy', `${parseFloat(text.attr('dy')) + 0.6}em`)
+                            .text(components[1]);
+                    }
+                };
+                texts.each(wrapTspan);
+            });
 
             groups.select('text')
                 .attr('transform', (d) => {
