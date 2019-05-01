@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": "https://github.com/amida-tech/viz-generator",
   "author": "Christopher Best <bestchris@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
